@@ -1,0 +1,64 @@
+datasource.main:
+  url: jdbc:oracle:thin:@10.40.62.166:10101:TMALL
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: tmalluser
+#  password: 'ENC(cchUxiOO5QfmtGhpYoZUgv44DZhcz7+bjEVgBuuQ1G7lsnZ5LdNV/OuCCgGmG9Lf)'
+  password: tmalluser#stg1
+  platform: all
+  hikari:
+    maximum-pool-size: 40
+    connection-timeout: 300
+    max-lifetime: 0
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: maindb
+
+datasource.bi:
+  url: jdbc:oracle:thin:@10.40.62.166:10101:TMALL
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: tmalluser
+  password: tmalluser#stg1
+#  password: 'ENC(zIptBILdw0nmdeZpI3x4HaluuX37WT3nS3mSm+vq7p7nSHtBSOdrffDVVkX+gAbP)'
+  platform: all
+  hikari:
+    maximum-pool-size: 40
+    connection-timeout: 300
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: bidb
+    max-lifetime: 0
+
+datasource.mp:
+  url: jdbc:oracle:thin:@10.40.62.166:10101:TMALL
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: tmalluser
+  password: tmalluser#stg1
+  #  password: 'ENC(zIptBILdw0nmdeZpI3x4HaluuX37WT3nS3mSm+vq7p7nSHtBSOdrffDVVkX+gAbP)'
+  platform: all
+  hikari:
+    maximum-pool-size: 40
+    connection-timeout: 300
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: mpdb
+    max-lifetime: 0
+
+datasource.prmt:
+  url: jdbc:oracle:thin:@10.40.62.166:14786:PRMTDB
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: cupnuser
+  password: cupnuser#stg1
+  platform: all
+  hikari:
+    maximum-pool-size: 40
+    connection-timeout: 300
+    max-lifetime: 0
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: prmt
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.18.176.192:8761/eureka
+    registerWithEureka: true

@@ -1,0 +1,84 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pcs
+
+  profiles:
+    active: local
+
+#mybatis:
+#  config-location: classpath:mybatis-config.xml
+
+datasource.main:
+  url: jdbc:oracle:thin:@172.18.176.69:1525:TMALL
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: tmalluser
+  password: tmalluser#stg1
+  platform: all
+  hikari:
+    maximum-pool-size: 2
+    connection-timeout: 300
+    max-lifetime: 0
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: maindb
+
+datasource.bi:
+  url: jdbc:oracle:thin:@172.18.176.69:1525:TMALL
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: tmalluser
+  password: tmalluser#stg1
+  platform: all
+  hikari:
+    maximum-pool-size: 2
+    connection-timeout: 300
+    max-lifetime: 0
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: bidb
+
+datasource.mp:
+  url: jdbc:oracle:thin:@172.18.176.69:1525:TMALL
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: tmalluser
+  password: tmalluser#stg1
+#  tmall.sqlMap.mpdb.url=ENC(e7JMHwte5K2n88tWc98FccdAQWe4kGmgpMDr8xlZeb9lDHEwwLhs13VfXYd1bpbP/ft0AC7/Oik=)
+#  tmall.sqlMap.mpdb.username=ENC(0IcRWDjh9nA/U6wfOtgQ8qUFiTIP52iE)
+#  tmall.sqlMap.mpdb.password=ENC(7HbbwNJH7M+xj1IvK1dBQdsAoGc1xJxB)
+  platform: all
+  hikari:
+    maximum-pool-size: 2
+    connection-timeout: 300
+    max-lifetime: 0
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: mpdb
+
+datasource.prmt:
+  url: jdbc:oracle:thin:@(DESCRIPTION = (LOAD_BALANCE = OFF)(FAILOVER = ON)(ADDRESS = (PROTOCOL = TCP)(HOST = 172.28.64.126)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 172.28.64.128)(PORT = 1521))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = PRMTDB)))
+  type: com.zaxxer.hikari.HikariDataSource
+  driver-class-name: oracle.jdbc.OracleDriver
+  username: cupnuser
+  password: asdfasdfasdfasdfasdf
+  #password: ENC(1vXW7kBVE+ce8G/POBEb411ZfeHRKgjj)
+  platform: all
+  hikari:
+    maximum-pool-size: 2
+    connection-timeout: 300
+    max-lifetime: 0
+    connection-test-query: SELECT 1 FROM DUAL
+    pool-name: prmt
+
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    prefer-ip-address: true
+    metadata-map:
+      management.context-path: /actuator
+    lease-expiration-duration-in-seconds: 60 # default 90s
+  client:
+    healthcheck:
+      enabled: true
+    registryFetchIntervalSeconds: 10

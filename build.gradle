@@ -1,0 +1,64 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'idea'
+}
+
+group = 'elevenst.vine'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+ext {
+    springBootVersion = '2.6.6'
+    set('springCloudVersion', '2021.0.1')
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+bootRun {
+    systemProperties.putAll(System.properties)
+}
+
+repositories {
+    maven { //noinspection HttpUrlsUsage
+        url "http://nexus.11stcorp.com:8081/nexus/content/groups/public/"
+        allowInsecureProtocol = true
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok:1.18.22' // jdk17 compatible lombok
+    annotationProcessor 'org.projectlombok:lombok:1.18.22' // jdk17 compatible lombok
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.oracle.database.jdbc:ojdbc8:12.2.0.1'
+
+    // vine config
+    implementation 'vine:vine-feign-extensions:3.2.6'
+    implementation 'io.github.openfeign:feign-hc5:11.8'
+    implementation 'io.github.openfeign:feign-core:11.8'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation('vine:vine-starter-api-server:3.4.0') {
+        exclude group: "org.springframework.cloud", module: "spring-cloud-config-client"
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
